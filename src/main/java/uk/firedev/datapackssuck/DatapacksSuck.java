@@ -4,6 +4,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import uk.firedev.datapackssuck.listeners.AntiEndermanGrief;
+import uk.firedev.datapackssuck.listeners.BetterItemFrames;
 import uk.firedev.datapackssuck.listeners.BuddingAmethystSilkTouch;
 import uk.firedev.datapackssuck.listeners.DurabilityPing;
 import uk.firedev.datapackssuck.listeners.PlayerHeadDrops;
@@ -43,6 +44,7 @@ public final class DatapacksSuck extends JavaPlugin {
         pm.registerEvents(new AntiEndermanGrief(), this);
         pm.registerEvents(new DurabilityPing(), this);
         pm.registerEvents(new PlayerHeadDrops(), this);
+        pm.registerEvents(new BetterItemFrames(), this);
     }
 
 }
