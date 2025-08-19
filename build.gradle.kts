@@ -21,51 +21,24 @@ dependencies {
 
 group = "uk.firedev"
 version = properties["project-version"] as String
-description = "Template Plugin"
+description = "A plugin to replace some datapacks because datapacks suck."
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 paper {
     name = project.name
     version = project.version.toString()
-    main = "uk.firedev.plugintemplate.PluginTemplate"
-    apiVersion = "1.21.4"
+    main = "uk.firedev.datapackssuck.DatapacksSuck"
+    apiVersion = "1.21.8"
     author = "FireML"
     description = project.description.toString()
 
-    loader = "uk.firedev.plugintemplate.LibraryLoader"
+    loader = "uk.firedev.datapackssuck.LibraryLoader"
     generateLibrariesJson = true
 
     serverDependencies {
         register("DaisyLib") {
             required = true
             load = PaperPluginDescription.RelativeLoadOrder.BEFORE
-        }
-    }
-}
-
-publishing {
-    repositories {
-        maven {
-            url = uri("https://repo.codemc.io/repository/FireML/")
-
-            val mavenUsername = System.getenv("JENKINS_USERNAME")
-            val mavenPassword = System.getenv("JENKINS_PASSWORD")
-
-            if (mavenUsername != null && mavenPassword != null) {
-                credentials {
-                    username = mavenUsername
-                    password = mavenPassword
-                }
-            }
-        }
-    }
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = project.group.toString()
-            artifactId = rootProject.name
-            version = project.version.toString()
-
-            from(components["shadow"])
         }
     }
 }

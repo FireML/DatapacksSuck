@@ -1,21 +1,22 @@
-package uk.firedev.plugintemplate;
+package uk.firedev.datapackssuck;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-public final class PluginTemplate extends JavaPlugin {
+public final class DatapacksSuck extends JavaPlugin {
 
-    private static PluginTemplate INSTANCE;
+    private static DatapacksSuck INSTANCE;
 
-    public PluginTemplate() {
+    public DatapacksSuck() {
         if (INSTANCE != null) {
             throw new UnsupportedOperationException(getClass().getName() + " has already been assigned!");
         }
         INSTANCE = this;
     }
 
-    public static @NotNull PluginTemplate getInstance() {
+    public static @NotNull DatapacksSuck getInstance() {
         if (INSTANCE == null) {
-            throw new UnsupportedOperationException(PluginTemplate.class.getSimpleName() + " has not been assigned!");
+            throw new UnsupportedOperationException(DatapacksSuck.class.getSimpleName() + " has not been assigned!");
         }
         return INSTANCE;
     }
