@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import uk.firedev.datapackssuck.listeners.AntiEndermanGrief;
 import uk.firedev.datapackssuck.listeners.BuddingAmethystSilkTouch;
+import uk.firedev.datapackssuck.listeners.DurabilityPing;
 
 public final class DatapacksSuck extends JavaPlugin {
 
@@ -39,6 +40,7 @@ public final class DatapacksSuck extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new BuddingAmethystSilkTouch(), this);
         pm.registerEvents(new AntiEndermanGrief(), this);
+        pm.registerEvents(new DurabilityPing(), this);
     }
 
 }
