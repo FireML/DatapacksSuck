@@ -1,22 +1,26 @@
 package uk.firedev.datapackssuck.listeners;
 
+import io.papermc.paper.event.player.PlayerItemFrameChangeEvent;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 public class BetterItemFrames implements Listener {
+
+    private final NamespacedKey justUnlockedKey = new NamespacedKey("datapackssuck", "just_unlocked");
 
     // shears = invisible
     // brush = visible
     // glass pane = locked
     @EventHandler
-    public void onInteract(PlayerInteractAtEntityEvent event) {
-        if (!(event.getRightClicked() instanceof ItemFrame itemFrame)) {
-            return;
-        }
+    public void onInteract(PlayerItemFrameChangeEvent event) {
+        ItemFrame itemFrame = event.getItemFrame();
         Player player = event.getPlayer();
         if (!player.isSneaking()) {
             return;
@@ -27,6 +31,7 @@ public class BetterItemFrames implements Listener {
         }
         switch (handItem.getType()) {
             case SHEARS -> {
+                event.setCancelled(true);
                 if (!itemFrame.isVisible()) {
                     player.sendPlainMessage("The item frame is already invisible.");
                     return;
@@ -35,6 +40,7 @@ public class BetterItemFrames implements Listener {
                 player.sendPlainMessage("The item frame is now invisible.");
             }
             case BRUSH -> {
+                event.setCancelled(true);
                 if (itemFrame.isVisible()) {
                     player.sendPlainMessage("The item frame is already visible.");
                     return;
@@ -43,15 +49,47 @@ public class BetterItemFrames implements Listener {
                 player.sendPlainMessage("The item frame is now visible.");
             }
             case GLASS_PANE -> {
-                if (itemFrame.isFixed()) {
-                    itemFrame.setFixed(false);
-                    player.sendPlainMessage("The item frame is now unlocked.");
-                } else {
-                    itemFrame.setFixed(true);
-                    player.sendPlainMessage("The item frame is now locked.");
+                event.setCancelled(true);
+                // This will only fire when the item frame is not locked
+                if (isJustUnlocked(itemFrame)) {
+                    setJustUnlocked(itemFrame, false);
+                    return;
                 }
+                itemFrame.setFixed(true);
+                player.sendPlainMessage("The item frame is now locked.");
             }
         }
+    }
+
+    @EventHandler
+    public void onInteractLocked(PlayerInteractAtEntityEvent event) {
+        if (!(event.getRightClicked() instanceof ItemFrame itemFrame)) {
+            return;
+        }
+        if (!itemFrame.isFixed()) {
+            return;
+        }
+        Player player = event.getPlayer();
+        if (!player.isSneaking()) {
+            return;
+        }
+        ItemStack handItem = player.getInventory().getItemInMainHand();
+        if (handItem.isEmpty()) {
+            return;
+        }
+        if (handItem.getType() == Material.GLASS_PANE) {
+            itemFrame.setFixed(false);
+            player.sendPlainMessage("The item frame is now unlocked.");
+            setJustUnlocked(itemFrame, true);
+        }
+    }
+
+    private void setJustUnlocked(ItemFrame itemFrame, boolean locked) {
+        itemFrame.getPersistentDataContainer().set(justUnlockedKey, PersistentDataType.BOOLEAN, locked);
+    }
+
+    private boolean isJustUnlocked(ItemFrame itemFrame) {
+        return itemFrame.getPersistentDataContainer().getOrDefault(justUnlockedKey, PersistentDataType.BOOLEAN, false);
     }
 
 }
