@@ -3,6 +3,7 @@ package uk.firedev.datapackssuck;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import uk.firedev.datapackssuck.listeners.AfkDisplay;
 import uk.firedev.datapackssuck.listeners.AntiEndermanGrief;
 import uk.firedev.datapackssuck.listeners.BetterItemFrames;
 import uk.firedev.datapackssuck.listeners.BuddingAmethystSilkTouch;
@@ -45,6 +46,8 @@ public final class DatapacksSuck extends JavaPlugin {
         pm.registerEvents(new DurabilityPing(), this);
         pm.registerEvents(new PlayerHeadDrops(), this);
         pm.registerEvents(new BetterItemFrames(), this);
+
+        AfkDisplay.INSTANCE.start();
     }
 
 }
