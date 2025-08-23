@@ -11,3 +11,4 @@ A mess of different datapacks all compiled into a plugin because datapacks suuuu
 - Silk touch for budding amethyst.
 - Durability ping when your item has less than 10% durability.
 - Player heads drop when killed in pvp.
+- Player names in the tab list will turn gray when they haven't moved in 5 minutes.
