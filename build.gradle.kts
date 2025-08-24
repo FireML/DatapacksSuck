@@ -28,7 +28,7 @@ paper {
     name = project.name
     version = project.version.toString()
     main = "uk.firedev.datapackssuck.DatapacksSuck"
-    apiVersion = "1.21.8"
+    apiVersion = "1.21.6"
     author = "FireML"
     description = project.description.toString()
 
