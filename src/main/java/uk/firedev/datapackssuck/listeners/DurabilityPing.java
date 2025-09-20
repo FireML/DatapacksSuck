@@ -9,9 +9,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
-import uk.firedev.daisylib.api.message.Message;
-import uk.firedev.daisylib.api.message.component.ComponentMessage;
 import uk.firedev.daisylib.command.CooldownHelper;
+import uk.firedev.messagelib.message.ComponentMessage;
+import uk.firedev.messagelib.message.MessageType;
 
 import java.time.Duration;
 
@@ -39,11 +39,11 @@ public class DurabilityPing implements Listener {
                 return;
             }
             cooldownHelper.applyCooldown(player.getUniqueId(), Duration.ofSeconds(15));
-            ComponentMessage.fromString("<gold>{item} <red>durability low! <gold>{current} <red>of {max} remaining.", Message.MessageType.SUBTITLE)
-                .replace("item", Component.translatable(item))
-                .replace("current", Component.text(currentDamage))
-                .replace("max", Component.text(maxDamage))
-                .sendMessage(player);
+            ComponentMessage.componentMessage("<gold>{item} <red>durability low! <gold>{current} <red>of {max} remaining.", MessageType.SUBTITLE)
+                .replace("{item}", Component.translatable(item))
+                .replace("{current}", Component.text(currentDamage))
+                .replace("{max}", Component.text(maxDamage))
+                .send(player);
             player.playSound(
                 Sound.sound()
                     .type(Key.key("minecraft:block.anvil.land"))

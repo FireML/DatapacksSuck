@@ -4,10 +4,10 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             // Paper API
-            library("paper-api", "io.papermc.paper:paper-api:1.21.6-R0.1-SNAPSHOT")
+            library("paper-api", "io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
 
             // compileOnly dependencies
-            library("daisylib", "uk.firedev:DaisyLib:2.5.0-SNAPSHOT")
+            library("daisylib", "uk.firedev:DaisyLib:2.6.1-SNAPSHOT")
 
             // implementation dependencies
 
