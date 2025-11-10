@@ -10,8 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import uk.firedev.daisylib.command.CooldownHelper;
-import uk.firedev.messagelib.message.ComponentMessage;
-import uk.firedev.messagelib.message.MessageType;
+import uk.firedev.daisylib.libs.messagelib.message.ComponentMessage;
+import uk.firedev.daisylib.libs.messagelib.message.MessageType;
 
 import java.time.Duration;
 
