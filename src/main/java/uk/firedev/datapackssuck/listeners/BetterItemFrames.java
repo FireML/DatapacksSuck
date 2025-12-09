@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import uk.firedev.datapackssuck.config.MainConfig;
 
 public class BetterItemFrames implements Listener {
 
@@ -20,6 +21,9 @@ public class BetterItemFrames implements Listener {
     // glass pane = locked
     @EventHandler
     public void onInteract(PlayerItemFrameChangeEvent event) {
+        if (!MainConfig.getInstance().isBetterItemFramesEnabled()) {
+            return;
+        }
         ItemFrame itemFrame = event.getItemFrame();
         Player player = event.getPlayer();
         if (!player.isSneaking()) {
@@ -63,6 +67,9 @@ public class BetterItemFrames implements Listener {
 
     @EventHandler
     public void onInteractLocked(PlayerInteractAtEntityEvent event) {
+        if (!MainConfig.getInstance().isBetterItemFramesEnabled()) {
+            return;
+        }
         if (!(event.getRightClicked() instanceof ItemFrame itemFrame)) {
             return;
         }

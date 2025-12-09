@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import uk.firedev.daisylib.command.CooldownHelper;
 import uk.firedev.daisylib.libs.messagelib.message.ComponentMessage;
 import uk.firedev.daisylib.libs.messagelib.message.MessageType;
+import uk.firedev.datapackssuck.config.MainConfig;
 
 import java.time.Duration;
 
@@ -22,6 +23,9 @@ public class DurabilityPing implements Listener {
 
     @EventHandler
     public void onItemDamaged(PlayerItemDamageEvent event) {
+        if (!MainConfig.getInstance().isDurabilityPingEnabled()) {
+            return;
+        }
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
 

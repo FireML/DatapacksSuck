@@ -18,6 +18,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import uk.firedev.daisylib.events.PlayerMoveBlockEvent;
 import uk.firedev.datapackssuck.DatapacksSuck;
+import uk.firedev.datapackssuck.config.MainConfig;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -39,6 +40,9 @@ public class AfkDisplay implements Listener {
         task = Bukkit.getScheduler().runTaskTimer(
             DatapacksSuck.getInstance(),
             () -> Bukkit.getOnlinePlayers().forEach(player -> {
+                if (!MainConfig.getInstance().isAfkDisplayEnabled()) {
+                    return;
+                }
                 Instant lastSeen = tracker.get(player.getUniqueId());
                 if (lastSeen == null) {
                     return;

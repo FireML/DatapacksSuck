@@ -1,0 +1,10 @@
+# These settings determine whether the feature is enabled.
+afk-display: true
+anti-enderman-grief: true
+better-item-frames: true
+budding-amethyst-silk-touch: true
+durability-ping: true
+player-head-drops: true
+
+# Don't touch this.
+config-version: 1

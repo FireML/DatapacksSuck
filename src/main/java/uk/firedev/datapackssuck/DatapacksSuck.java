@@ -3,6 +3,7 @@ package uk.firedev.datapackssuck;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import uk.firedev.datapackssuck.config.MainConfig;
 import uk.firedev.datapackssuck.listeners.AfkDisplay;
 import uk.firedev.datapackssuck.listeners.AntiEndermanGrief;
 import uk.firedev.datapackssuck.listeners.BetterItemFrames;
@@ -33,6 +34,7 @@ public final class DatapacksSuck extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        MainConfig.getInstance().init();
         loadListeners();
     }
 

@@ -9,11 +9,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import uk.firedev.datapackssuck.config.MainConfig;
 
 public class BuddingAmethystSilkTouch implements Listener {
 
     @EventHandler
     public void onBuddingBroken(BlockBreakEvent event) {
+        if (!MainConfig.getInstance().isBuddingAmethystSilkTouchEnabled()) {
+            return;
+        }
         Player player = event.getPlayer();
         Block block = event.getBlock();
         if (!block.getType().equals(Material.BUDDING_AMETHYST)) {

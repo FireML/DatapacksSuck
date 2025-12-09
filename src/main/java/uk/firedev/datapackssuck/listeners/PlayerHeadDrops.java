@@ -6,11 +6,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ItemType;
+import uk.firedev.datapackssuck.config.MainConfig;
 
 public class PlayerHeadDrops implements Listener {
 
     @EventHandler
     public void onKill(PlayerDeathEvent event) {
+        if (!MainConfig.getInstance().isPlayerHeadDropsEnabled()) {
+            return;
+        }
         Player player = event.getPlayer();
         Player killer = event.getPlayer().getKiller();
         if (killer == null) {
