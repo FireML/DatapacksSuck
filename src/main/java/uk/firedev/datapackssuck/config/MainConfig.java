@@ -24,6 +24,10 @@ public class MainConfig extends ConfigBase {
         return getConfig().getBoolean("anti-enderman-grief", true);
     }
 
+    public boolean isAntiCreeperGriefEnabled() {
+        return getConfig().getBoolean("anti-creeper-grief", true);
+    }
+
     public boolean isBetterItemFramesEnabled() {
         return getConfig().getBoolean("better-item-frames", true);
     }
