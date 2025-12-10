@@ -1,8 +1,10 @@
 package uk.firedev.datapackssuck;
 
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import uk.firedev.datapackssuck.command.MainCommand;
 import uk.firedev.datapackssuck.config.MainConfig;
 import uk.firedev.datapackssuck.listeners.AfkDisplay;
 import uk.firedev.datapackssuck.listeners.AntiEndermanGrief;
@@ -30,12 +32,20 @@ public final class DatapacksSuck extends JavaPlugin {
     }
 
     @Override
-    public void onLoad() {}
+    public void onLoad() {
+        getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
+            commands.registrar().register(MainCommand.get());
+        });
+    }
 
     @Override
     public void onEnable() {
         MainConfig.getInstance().init();
         loadListeners();
+    }
+
+    public void reload() {
+        MainConfig.getInstance().reload();
     }
 
     @Override
