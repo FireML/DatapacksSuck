@@ -11,6 +11,7 @@ public class MainCommand {
 
     public static LiteralCommandNode<CommandSourceStack> get() {
         return Commands.literal("datapackssuck")
+            .requires(stack -> stack.getSender().hasPermission("datapackssuck.command"))
             .then(reload())
             .build();
     }
