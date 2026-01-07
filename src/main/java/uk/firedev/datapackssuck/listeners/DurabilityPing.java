@@ -9,17 +9,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
-import uk.firedev.daisylib.command.CooldownHelper;
 import uk.firedev.daisylib.libs.messagelib.message.ComponentMessage;
 import uk.firedev.daisylib.libs.messagelib.message.MessageType;
 import uk.firedev.datapackssuck.config.MainConfig;
+import uk.firedev.daisylib.util.CooldownHelper;
 
 import java.time.Duration;
 
 @SuppressWarnings("UnstableApiUsage")
 public class DurabilityPing implements Listener {
 
-    private final CooldownHelper cooldownHelper = CooldownHelper.create();
+    private final CooldownHelper cooldownHelper = CooldownHelper.cooldownHelper();
 
     @EventHandler
     public void onItemDamaged(PlayerItemDamageEvent event) {
@@ -39,10 +39,10 @@ public class DurabilityPing implements Listener {
         double percentDamaged = (itemDamage / (double) maxDamage) * 100.0;
 
         if (percentDamaged >= 90.0) {
-            if (cooldownHelper.hasCooldown(player.getUniqueId())) {
+            if (cooldownHelper.has(player.getUniqueId())) {
                 return;
             }
-            cooldownHelper.applyCooldown(player.getUniqueId(), Duration.ofSeconds(15));
+            cooldownHelper.apply(player.getUniqueId(), Duration.ofSeconds(45));
             ComponentMessage.componentMessage("<gold>{item} <red>durability low! <gold>{current} <red>of {max} remaining.", MessageType.SUBTITLE)
                 .replace("{item}", Component.translatable(item))
                 .replace("{current}", Component.text(currentDamage))

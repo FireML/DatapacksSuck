@@ -16,7 +16,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
-import uk.firedev.daisylib.events.PlayerMoveBlockEvent;
 import uk.firedev.datapackssuck.DatapacksSuck;
 import uk.firedev.datapackssuck.config.MainConfig;
 
@@ -56,7 +55,10 @@ public class AfkDisplay implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onMove(PlayerMoveBlockEvent event) {
+    public void onMove(PlayerMoveEvent event) {
+        if (event.getFrom().getBlock().equals(event.getTo().getBlock())) {
+            return;
+        }
         Player player = event.getPlayer();
         tracker.put(event.getPlayer().getUniqueId(), Instant.now());
         player.playerListName(null);
@@ -65,8 +67,13 @@ public class AfkDisplay implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onChat(AsyncChatEvent event) {
         Player player = event.getPlayer();
-        tracker.put(event.getPlayer().getUniqueId(), Instant.now());
-        player.playerListName(null);
+        Bukkit.getScheduler().runTask(
+            DatapacksSuck.getInstance(),
+            () -> {
+                tracker.put(event.getPlayer().getUniqueId(), Instant.now());
+                player.playerListName(null);
+            }
+        );
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
