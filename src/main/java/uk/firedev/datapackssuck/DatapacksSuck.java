@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import uk.firedev.datapackssuck.command.MainCommand;
 import uk.firedev.datapackssuck.config.MainConfig;
 import uk.firedev.datapackssuck.listeners.AfkDisplay;
+import uk.firedev.datapackssuck.listeners.AntiCreeperGrief;
 import uk.firedev.datapackssuck.listeners.AntiEndermanGrief;
 import uk.firedev.datapackssuck.listeners.BetterItemFrames;
 import uk.firedev.datapackssuck.listeners.BuddingAmethystSilkTouch;
@@ -53,11 +54,13 @@ public final class DatapacksSuck extends JavaPlugin {
 
     private void loadListeners() {
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new BuddingAmethystSilkTouch(), this);
+        pm.registerEvents(AfkDisplay.INSTANCE, this);
+        pm.registerEvents(new AntiCreeperGrief(), this);
         pm.registerEvents(new AntiEndermanGrief(), this);
+        pm.registerEvents(new BetterItemFrames(), this);
+        pm.registerEvents(new BuddingAmethystSilkTouch(), this);
         pm.registerEvents(new DurabilityPing(), this);
         pm.registerEvents(new PlayerHeadDrops(), this);
-        pm.registerEvents(new BetterItemFrames(), this);
 
         AfkDisplay.INSTANCE.start();
     }

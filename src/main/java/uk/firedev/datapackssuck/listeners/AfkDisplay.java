@@ -35,7 +35,6 @@ public class AfkDisplay implements Listener {
         if (task != null) {
             return; // Already started
         }
-        Bukkit.getPluginManager().registerEvents(this, DatapacksSuck.getInstance());
         task = Bukkit.getScheduler().runTaskTimer(
             DatapacksSuck.getInstance(),
             () -> Bukkit.getOnlinePlayers().forEach(player -> {
