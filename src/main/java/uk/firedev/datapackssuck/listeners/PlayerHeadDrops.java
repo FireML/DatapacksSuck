@@ -2,6 +2,7 @@ package uk.firedev.datapackssuck.listeners;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +29,9 @@ public class PlayerHeadDrops implements Listener {
             skullMeta -> {
                 skullMeta.setPlayerProfile(player.getPlayerProfile());
                 skullMeta.lore(List.of(
-                    Component.text("Killed by " + killer.getName()).color(NamedTextColor.YELLOW)
+                    Component.text("Killed by " + killer.getName())
+                        .color(NamedTextColor.YELLOW)
+                        .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE)
                 ));
             }
         );
