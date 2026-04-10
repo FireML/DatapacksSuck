@@ -41,7 +41,6 @@ public final class DatapacksSuck extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        MainConfig.getInstance().init();
         loadListeners();
     }
 
